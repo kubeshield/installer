@@ -2,14 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1
-operator:
+server:
   registry: kubeshield
   repository: identity-server
-  tag: v0.0.5
-cleaner:
-  registry: appscode
-  repository: kubectl
-  tag: v1.16
+  tag: v0.0.6
 
 ## Optionally specify an array of imagePullSecrets.
 ## Secrets must be manually created in the namespace.
@@ -23,14 +19,14 @@ imagePullSecrets: []
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 ##
 imagePullPolicy: IfNotPresent
-## Installs voyager operator as critical addon
+## Installs identity server as critical addon
 ## https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
 criticalAddon: false
 
-## Log level for operator
+## Log level for server
 logLevel: 3
 
-## Annotations passed to operator pod(s).
+## Annotations passed to server pod(s).
 ##
 annotations: {}
 
@@ -81,7 +77,7 @@ apiserver:
   versionPriority: 15
   # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
   useKubeapiserverFqdnForAks: true
-  # healthcheck configures the readiness and liveliness probes for the operator pod.
+  # healthcheck configures the readiness and liveliness probes for the server pod.
   healthcheck:
     enabled: false
   servingCerts:
@@ -97,10 +93,10 @@ apiserver:
 enableAnalytics: true
 
 monitoring:
-  # specify monitoring agent (either "prometheus.io/builtin" or "prometheus.io/coreos-operator")
+  # specify monitoring agent (either "prometheus.io/builtin" or "prometheus.io/operator")
   agent: "none"
   # specify whether to monitor Identity server
-  operator: false
+  server: false
   # specify where ServiceMonitor crd will be created
   prometheus:
     namespace: ""

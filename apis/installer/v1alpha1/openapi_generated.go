@@ -15587,12 +15587,7 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 							Format: "int32",
 						},
 					},
-					"operator": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef"),
-						},
-					},
-					"cleaner": {
+					"server": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef"),
 						},
@@ -15703,7 +15698,7 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
+				Required: []string{"replicaCount", "server", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
 		},
 		Dependencies: []string{

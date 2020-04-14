@@ -51,33 +51,32 @@ type ImageRef struct {
 // IdentityServerSpec is the spec for redis version
 type IdentityServerSpec struct {
 	ReplicaCount    int32    `json:"replicaCount" protobuf:"varint,1,opt,name=replicaCount"`
-	Operator        ImageRef `json:"operator" protobuf:"bytes,2,opt,name=operator"`
-	Cleaner         ImageRef `json:"cleaner" protobuf:"bytes,3,opt,name=cleaner"`
-	ImagePullPolicy string   `json:"imagePullPolicy" protobuf:"bytes,4,opt,name=imagePullPolicy"`
+	Server          ImageRef `json:"server" protobuf:"bytes,2,opt,name=server"`
+	ImagePullPolicy string   `json:"imagePullPolicy" protobuf:"bytes,3,opt,name=imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets" protobuf:"bytes,5,rep,name=imagePullSecrets"`
+	ImagePullSecrets []string `json:"imagePullSecrets" protobuf:"bytes,4,rep,name=imagePullSecrets"`
 	//+optional
-	CriticalAddon bool `json:"criticalAddon" protobuf:"varint,6,opt,name=criticalAddon"`
+	CriticalAddon bool `json:"criticalAddon" protobuf:"varint,5,opt,name=criticalAddon"`
 	//+optional
-	LogLevel int32 `json:"logLevel" protobuf:"varint,7,opt,name=logLevel"`
+	LogLevel int32 `json:"logLevel" protobuf:"varint,6,opt,name=logLevel"`
 	//+optional
-	Annotations map[string]string `json:"annotations" protobuf:"bytes,8,rep,name=annotations"`
+	Annotations map[string]string `json:"annotations" protobuf:"bytes,7,rep,name=annotations"`
 	//+optional
-	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,9,rep,name=nodeSelector"`
+	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,8,rep,name=nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,10,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,9,rep,name=tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,11,opt,name=affinity"`
+	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,10,opt,name=affinity"`
 	// Compute Resources required by the sidecar container.
 	//+optional
-	Resources      core.ResourceRequirements `json:"resources" protobuf:"bytes,12,opt,name=resources"`
-	ServiceAccount ServiceAccountSpec        `json:"serviceAccount" protobuf:"bytes,13,opt,name=serviceAccount"`
-	Apiserver      WebHookSpec               `json:"apiserver" protobuf:"bytes,14,opt,name=apiserver"`
+	Resources      core.ResourceRequirements `json:"resources" protobuf:"bytes,11,opt,name=resources"`
+	ServiceAccount ServiceAccountSpec        `json:"serviceAccount" protobuf:"bytes,12,opt,name=serviceAccount"`
+	Apiserver      WebHookSpec               `json:"apiserver" protobuf:"bytes,13,opt,name=apiserver"`
 	//+optional
-	EnableAnalytics bool       `json:"enableAnalytics" protobuf:"varint,15,opt,name=enableAnalytics"`
-	Monitoring      Monitoring `json:"monitoring" protobuf:"bytes,16,opt,name=monitoring"`
+	EnableAnalytics bool       `json:"enableAnalytics" protobuf:"varint,14,opt,name=enableAnalytics"`
+	Monitoring      Monitoring `json:"monitoring" protobuf:"bytes,15,opt,name=monitoring"`
 }
 
 type ServiceAccountSpec struct {

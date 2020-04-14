@@ -1170,8 +1170,7 @@
       "type": "object",
       "required": [
         "replicaCount",
-        "operator",
-        "cleaner",
+        "server",
         "imagePullPolicy",
         "serviceAccount",
         "apiserver",
@@ -1190,9 +1189,6 @@
         },
         "apiserver": {
           "$ref": "#/definitions/dev.kubeshield.installer.apis.installer.v1alpha1.WebHookSpec"
-        },
-        "cleaner": {
-          "$ref": "#/definitions/dev.kubeshield.installer.apis.installer.v1alpha1.ImageRef"
         },
         "criticalAddon": {
           "type": "boolean"
@@ -1222,9 +1218,6 @@
             "type": "string"
           }
         },
-        "operator": {
-          "$ref": "#/definitions/dev.kubeshield.installer.apis.installer.v1alpha1.ImageRef"
-        },
         "replicaCount": {
           "type": "integer",
           "format": "int32"
@@ -1232,6 +1225,9 @@
         "resources": {
           "description": "Compute Resources required by the sidecar container.",
           "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
+        },
+        "server": {
+          "$ref": "#/definitions/dev.kubeshield.installer.apis.installer.v1alpha1.ImageRef"
         },
         "serviceAccount": {
           "$ref": "#/definitions/dev.kubeshield.installer.apis.installer.v1alpha1.ServiceAccountSpec"
