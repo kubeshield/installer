@@ -54,47 +54,45 @@ message IdentityServerList {
 message IdentityServerSpec {
   optional int32 replicaCount = 1;
 
-  optional ImageRef operator = 2;
+  optional ImageRef server = 2;
 
-  optional ImageRef cleaner = 3;
-
-  optional string imagePullPolicy = 4;
+  optional string imagePullPolicy = 3;
 
   // +optional
-  repeated string imagePullSecrets = 5;
+  repeated string imagePullSecrets = 4;
 
   // +optional
-  optional bool criticalAddon = 6;
+  optional bool criticalAddon = 5;
 
   // +optional
-  optional int32 logLevel = 7;
+  optional int32 logLevel = 6;
 
   // +optional
-  map<string, string> annotations = 8;
+  map<string, string> annotations = 7;
 
   // +optional
-  map<string, string> nodeSelector = 9;
+  map<string, string> nodeSelector = 8;
 
   // If specified, the pod's tolerations.
   // +optional
-  repeated k8s.io.api.core.v1.Toleration tolerations = 10;
+  repeated k8s.io.api.core.v1.Toleration tolerations = 9;
 
   // If specified, the pod's scheduling constraints
   // +optional
-  optional k8s.io.api.core.v1.Affinity affinity = 11;
+  optional k8s.io.api.core.v1.Affinity affinity = 10;
 
   // Compute Resources required by the sidecar container.
   // +optional
-  optional k8s.io.api.core.v1.ResourceRequirements resources = 12;
+  optional k8s.io.api.core.v1.ResourceRequirements resources = 11;
 
-  optional ServiceAccountSpec serviceAccount = 13;
+  optional ServiceAccountSpec serviceAccount = 12;
 
-  optional WebHookSpec apiserver = 14;
+  optional WebHookSpec apiserver = 13;
 
   // +optional
-  optional bool enableAnalytics = 15;
+  optional bool enableAnalytics = 14;
 
-  optional Monitoring monitoring = 16;
+  optional Monitoring monitoring = 15;
 }
 
 message ImageRef {

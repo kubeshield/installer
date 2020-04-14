@@ -651,19 +651,6 @@ spec:
               - useKubeapiserverFqdnForAks
               - versionPriority
               type: object
-            cleaner:
-              properties:
-                registry:
-                  type: string
-                repository:
-                  type: string
-                tag:
-                  type: string
-              required:
-              - registry
-              - repository
-              - tag
-              type: object
             criticalAddon:
               type: boolean
             enableAnalytics:
@@ -704,19 +691,6 @@ spec:
               additionalProperties:
                 type: string
               type: object
-            operator:
-              properties:
-                registry:
-                  type: string
-                repository:
-                  type: string
-                tag:
-                  type: string
-              required:
-              - registry
-              - repository
-              - tag
-              type: object
             replicaCount:
               format: int32
               type: integer
@@ -737,6 +711,19 @@ spec:
                     to Limits if that is explicitly specified, otherwise to an implementation-defined
                     value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
                   type: object
+              type: object
+            server:
+              properties:
+                registry:
+                  type: string
+                repository:
+                  type: string
+                tag:
+                  type: string
+              required:
+              - registry
+              - repository
+              - tag
               type: object
             serviceAccount:
               properties:
@@ -789,11 +776,10 @@ spec:
               type: array
           required:
           - apiserver
-          - cleaner
           - imagePullPolicy
           - monitoring
-          - operator
           - replicaCount
+          - server
           - serviceAccount
           type: object
       type: object

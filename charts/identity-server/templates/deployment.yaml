@@ -38,7 +38,7 @@ spec:
         fsGroup: 65535
       containers:
       - name: operator
-        image: {{ .Values.operator.registry }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
+        image: {{ .Values.server.registry }}/{{ .Values.server.repository }}:{{ .Values.server.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - run
