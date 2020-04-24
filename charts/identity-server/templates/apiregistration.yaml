@@ -27,7 +27,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "identity-server.fullname" . }}
+    name: {{ include "identity-server.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "identity-server.fullname" . }}-apiserver-cert
+  name: {{ include "identity-server.fullname" . }}-apiserver-cert
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "identity-server.labels" . | nindent 4 }}
@@ -51,7 +51,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "identity-server.fullname" . }}-apiserver-cert
+  name: {{ include "identity-server.fullname" . }}-apiserver-cert
   namespace: {{ $promNamespace }}
   labels:
     {{- include "identity-server.labels" . | nindent 4 }}
@@ -65,7 +65,7 @@ data:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ template "identity-server.fullname" . }}-apiserver-extension-server-authentication-reader
+  name: {{ include "identity-server.fullname" . }}-apiserver-extension-server-authentication-reader
   namespace: kube-system
   labels:
     {{- include "identity-server.labels" . | nindent 4 }}
@@ -75,14 +75,14 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: {{ template "identity-server.serviceAccountName" . }}
+  name: {{ include "identity-server.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 ---
 # to delegate authentication and authorization
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ template "identity-server.fullname" . }}-apiserver-auth-delegator
+  name: {{ include "identity-server.fullname" . }}-apiserver-auth-delegator
   labels:
     {{- include "identity-server.labels" . | nindent 4 }}
 roleRef:
@@ -91,5 +91,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: {{ template "identity-server.serviceAccountName" . }}
+  name: {{ include "identity-server.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
