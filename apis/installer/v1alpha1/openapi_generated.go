@@ -330,11 +330,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                               schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                       schema_apimachinery_pkg_util_intstr_IntOrString(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                  schema_k8sio_apimachinery_pkg_version_Info(ref),
+		"kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef":         schema_installer_apis_installer_v1alpha1_ContianerRef(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.HealthcheckSpec":      schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServer":       schema_installer_apis_installer_v1alpha1_IdentityServer(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServerList":   schema_installer_apis_installer_v1alpha1_IdentityServerList(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServerSpec":   schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref),
-		"kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef":             schema_installer_apis_installer_v1alpha1_ImageRef(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring":           schema_installer_apis_installer_v1alpha1_Monitoring(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.PrometheusSpec":       schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":   schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
@@ -15471,6 +15471,51 @@ func schema_k8sio_apimachinery_pkg_version_Info(ref common.ReferenceCallback) co
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_ContianerRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repository": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tag": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"resources": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Compute Resources required by the sidecar container.",
+							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+						},
+					},
+					"securityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Security options the pod should run with.",
+							Ref:         ref("k8s.io/api/core/v1.SecurityContext"),
+						},
+					},
+				},
+				Required: []string{"registry", "repository", "tag"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext"},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15578,18 +15623,30 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "IdentityServerSpec is the spec for redis version",
+				Description: "IdentityServerSpec is the schema for Identity Server values file",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"replicaCount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
 						},
 					},
-					"server": {
+					"image": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef"),
+							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef"),
 						},
 					},
 					"imagePullPolicy": {
@@ -15637,6 +15694,20 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 							},
 						},
 					},
+					"podAnnotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"nodeSelector": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -15670,10 +15741,10 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 							Ref:         ref("k8s.io/api/core/v1.Affinity"),
 						},
 					},
-					"resources": {
+					"podSecurityContext": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Compute Resources required by the sidecar container.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Description: "PodSecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
+							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
 						},
 					},
 					"serviceAccount": {
@@ -15698,42 +15769,11 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"replicaCount", "server", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
+				Required: []string{"replicaCount", "image", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef", "kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring", "kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubeshield.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
-	}
-}
-
-func schema_installer_apis_installer_v1alpha1_ImageRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"registry": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"repository": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"tag": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-				},
-				Required: []string{"registry", "repository", "tag"},
-			},
-		},
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef", "kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring", "kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubeshield.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
 	}
 }
 
@@ -15749,7 +15789,7 @@ func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCal
 							Format: "",
 						},
 					},
-					"operator": {
+					"server": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
 							Format: "",
@@ -15808,6 +15848,20 @@ func schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 				},

@@ -29,6 +29,22 @@ import "k8s.io/apimachinery/pkg/runtime/schema/generated.proto";
 // Package-wide variables from generator "generated".
 option go_package = "v1alpha1";
 
+message ContianerRef {
+  optional string registry = 1;
+
+  optional string repository = 2;
+
+  optional string tag = 3;
+
+  // Compute Resources required by the sidecar container.
+  // +optional
+  optional k8s.io.api.core.v1.ResourceRequirements resources = 4;
+
+  // Security options the pod should run with.
+  // +optional
+  optional k8s.io.api.core.v1.SecurityContext securityContext = 5;
+}
+
 message HealthcheckSpec {
   // +optional
   optional bool enabled = 1;
@@ -50,64 +66,66 @@ message IdentityServerList {
   repeated IdentityServer items = 2;
 }
 
-// IdentityServerSpec is the spec for redis version
+// IdentityServerSpec is the schema for Identity Server values file
 message IdentityServerSpec {
-  optional int32 replicaCount = 1;
-
-  optional ImageRef server = 2;
-
-  optional string imagePullPolicy = 3;
+  // +optional
+  optional string nameOverride = 1;
 
   // +optional
-  repeated string imagePullSecrets = 4;
+  optional string fullnameOverride = 2;
+
+  optional int32 replicaCount = 3;
+
+  optional ContianerRef image = 4;
+
+  optional string imagePullPolicy = 5;
 
   // +optional
-  optional bool criticalAddon = 5;
+  repeated string imagePullSecrets = 6;
 
   // +optional
-  optional int32 logLevel = 6;
+  optional bool criticalAddon = 7;
 
   // +optional
-  map<string, string> annotations = 7;
+  optional int32 logLevel = 8;
 
   // +optional
-  map<string, string> nodeSelector = 8;
+  map<string, string> annotations = 9;
+
+  // +optional
+  map<string, string> podAnnotations = 10;
+
+  // +optional
+  map<string, string> nodeSelector = 11;
 
   // If specified, the pod's tolerations.
   // +optional
-  repeated k8s.io.api.core.v1.Toleration tolerations = 9;
+  repeated k8s.io.api.core.v1.Toleration tolerations = 12;
 
   // If specified, the pod's scheduling constraints
   // +optional
-  optional k8s.io.api.core.v1.Affinity affinity = 10;
+  optional k8s.io.api.core.v1.Affinity affinity = 13;
 
-  // Compute Resources required by the sidecar container.
+  // PodSecurityContext holds pod-level security attributes and common container settings.
+  // Optional: Defaults to empty.  See type description for default values of each field.
   // +optional
-  optional k8s.io.api.core.v1.ResourceRequirements resources = 11;
+  optional k8s.io.api.core.v1.PodSecurityContext podSecurityContext = 14;
 
-  optional ServiceAccountSpec serviceAccount = 12;
+  optional ServiceAccountSpec serviceAccount = 15;
 
-  optional WebHookSpec apiserver = 13;
+  optional WebHookSpec apiserver = 16;
 
   // +optional
-  optional bool enableAnalytics = 14;
+  optional bool enableAnalytics = 17;
 
-  optional Monitoring monitoring = 15;
-}
-
-message ImageRef {
-  optional string registry = 1;
-
-  optional string repository = 2;
-
-  optional string tag = 3;
+  optional Monitoring monitoring = 18;
 }
 
 message Monitoring {
   optional string agent = 1;
 
   // +optional
-  optional bool operator = 2;
+  optional bool server = 2;
 
   optional PrometheusSpec prometheus = 3;
 
@@ -124,6 +142,9 @@ message ServiceAccountSpec {
 
   // +optional
   optional string name = 2;
+
+  // +optional
+  map<string, string> annotations = 3;
 }
 
 message ServiceMonitorLabels {
