@@ -42,47 +42,62 @@ type IdentityServer struct {
 	Spec              IdentityServerSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-type ImageRef struct {
+type ContianerRef struct {
 	Registry   string `json:"registry" protobuf:"bytes,1,opt,name=registry"`
 	Repository string `json:"repository" protobuf:"bytes,2,opt,name=repository"`
 	Tag        string `json:"tag" protobuf:"bytes,3,opt,name=tag"`
+	// Compute Resources required by the sidecar container.
+	// +optional
+	Resources core.ResourceRequirements `json:"resources" protobuf:"bytes,4,opt,name=resources"`
+	// Security options the pod should run with.
+	// +optional
+	SecurityContext *core.SecurityContext `json:"securityContext" protobuf:"bytes,5,opt,name=securityContext"`
 }
 
-// IdentityServerSpec is the spec for redis version
+// IdentityServerSpec is the schema for Identity Server values file
 type IdentityServerSpec struct {
-	ReplicaCount    int32    `json:"replicaCount" protobuf:"varint,1,opt,name=replicaCount"`
-	Server          ImageRef `json:"server" protobuf:"bytes,2,opt,name=server"`
-	ImagePullPolicy string   `json:"imagePullPolicy" protobuf:"bytes,3,opt,name=imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets" protobuf:"bytes,4,rep,name=imagePullSecrets"`
+	NameOverride string `json:"nameOverride" protobuf:"bytes,1,opt,name=nameOverride"`
 	//+optional
-	CriticalAddon bool `json:"criticalAddon" protobuf:"varint,5,opt,name=criticalAddon"`
+	FullnameOverride string       `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
+	ReplicaCount     int32        `json:"replicaCount" protobuf:"varint,3,opt,name=replicaCount"`
+	Image            ContianerRef `json:"image" protobuf:"bytes,4,opt,name=image"`
+	ImagePullPolicy  string       `json:"imagePullPolicy" protobuf:"bytes,5,opt,name=imagePullPolicy"`
 	//+optional
-	LogLevel int32 `json:"logLevel" protobuf:"varint,6,opt,name=logLevel"`
+	ImagePullSecrets []string `json:"imagePullSecrets" protobuf:"bytes,6,rep,name=imagePullSecrets"`
 	//+optional
-	Annotations map[string]string `json:"annotations" protobuf:"bytes,7,rep,name=annotations"`
+	CriticalAddon bool `json:"criticalAddon" protobuf:"varint,7,opt,name=criticalAddon"`
 	//+optional
-	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,8,rep,name=nodeSelector"`
+	LogLevel int32 `json:"logLevel" protobuf:"varint,8,opt,name=logLevel"`
+	//+optional
+	Annotations map[string]string `json:"annotations" protobuf:"bytes,9,rep,name=annotations"`
+	//+optional
+	PodAnnotations map[string]string `json:"podAnnotations" protobuf:"bytes,10,rep,name=podAnnotations"`
+	//+optional
+	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,11,rep,name=nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,9,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,12,rep,name=tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,10,opt,name=affinity"`
-	// Compute Resources required by the sidecar container.
+	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,13,opt,name=affinity"`
+	// PodSecurityContext holds pod-level security attributes and common container settings.
+	// Optional: Defaults to empty.  See type description for default values of each field.
+	// +optional
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,14,opt,name=podSecurityContext"`
+	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount" protobuf:"bytes,15,opt,name=serviceAccount"`
+	Apiserver          WebHookSpec              `json:"apiserver" protobuf:"bytes,16,opt,name=apiserver"`
 	//+optional
-	Resources      core.ResourceRequirements `json:"resources" protobuf:"bytes,11,opt,name=resources"`
-	ServiceAccount ServiceAccountSpec        `json:"serviceAccount" protobuf:"bytes,12,opt,name=serviceAccount"`
-	Apiserver      WebHookSpec               `json:"apiserver" protobuf:"bytes,13,opt,name=apiserver"`
-	//+optional
-	EnableAnalytics bool       `json:"enableAnalytics" protobuf:"varint,14,opt,name=enableAnalytics"`
-	Monitoring      Monitoring `json:"monitoring" protobuf:"bytes,15,opt,name=monitoring"`
+	EnableAnalytics bool       `json:"enableAnalytics" protobuf:"varint,17,opt,name=enableAnalytics"`
+	Monitoring      Monitoring `json:"monitoring" protobuf:"bytes,18,opt,name=monitoring"`
 }
 
 type ServiceAccountSpec struct {
 	Create bool `json:"create" protobuf:"varint,1,opt,name=create"`
 	//+optional
 	Name *string `json:"name" protobuf:"bytes,2,opt,name=name"`
+	//+optional
+	Annotations map[string]string `json:"annotations" protobuf:"bytes,3,rep,name=annotations"`
 }
 
 type WebHookSpec struct {
@@ -111,7 +126,7 @@ type ServingCerts struct {
 type Monitoring struct {
 	Agent string `json:"agent" protobuf:"bytes,1,opt,name=agent"`
 	//+optional
-	Operator       bool                  `json:"operator" protobuf:"varint,2,opt,name=operator"`
+	Server         bool                  `json:"server" protobuf:"varint,2,opt,name=server"`
 	Prometheus     *PrometheusSpec       `json:"prometheus" protobuf:"bytes,3,opt,name=prometheus"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor" protobuf:"bytes,4,opt,name=serviceMonitor"`
 }

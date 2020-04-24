@@ -39,11 +39,11 @@ criticalAddon: false
 ## Log level for server
 logLevel: 3
 
-## Annotations passed to operator deployment.
+## Annotations passed to server deployment.
 ##
 annotations: {}
 
-## Annotations passed to operator pod(s).
+## Annotations passed to server pod(s).
 ##
 podAnnotations: {}
 
@@ -95,7 +95,7 @@ apiserver:
     # Otherwise specify in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
     # See also: [example terraform](https://github.com/kubeshield/identity-server/blob/master/charts/identity-server/example-terraform.tf)
     generate: true
-    caCrt:
+    caCrt: ""
     serverCrt: ""
     serverKey: ""
 
