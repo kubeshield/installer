@@ -16,7 +16,7 @@ image:
   # Name of operator container image
   repository: identity-server
   # Operator container image tag
-  tag: v0.0.6
+  tag: v0.1.0
   # Compute Resources required by the operator container
   resources: {}
   # Security options the operator container should run with
