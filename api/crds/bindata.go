@@ -215,8 +215,8 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"installer.kubeshield.io_identityservers.v1.yaml": &bintree{installerKubeshieldIo_identityserversV1Yaml, map[string]*bintree{}},
-	"installer.kubeshield.io_identityservers.yaml":    &bintree{installerKubeshieldIo_identityserversYaml, map[string]*bintree{}},
+	"installer.kubeshield.io_identityservers.v1.yaml": {installerKubeshieldIo_identityserversV1Yaml, map[string]*bintree{}},
+	"installer.kubeshield.io_identityservers.yaml":    {installerKubeshieldIo_identityserversYaml, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
