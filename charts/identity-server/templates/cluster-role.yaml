@@ -6,7 +6,7 @@ metadata:
     {{- include "identity-server.labels" . | nindent 4 }}
 rules:
 - apiGroups:
-  - identity.kubeshield.io
+  - identity.kubeshield.cloud
   resources:
   - "*"
   verbs: ["*"]
