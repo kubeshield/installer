@@ -44,7 +44,7 @@
         }
       }
     },
-    "/apis/installer.kubeshield.io/": {
+    "/apis/installer.kubeshield.cloud/": {
       "get": {
         "description": "get information of a group",
         "consumes": [
@@ -61,9 +61,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo"
+          "installerKubeshieldCloud"
         ],
-        "operationId": "getInstallerKubeshieldIoAPIGroup",
+        "operationId": "getInstallerKubeshieldCloudAPIGroup",
         "responses": {
           "200": {
             "description": "OK",
@@ -74,7 +74,7 @@
         }
       }
     },
-    "/apis/installer.kubeshield.io/v1alpha1/": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/": {
       "get": {
         "description": "get available resources",
         "consumes": [
@@ -91,9 +91,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "getInstallerKubeshieldIoV1alpha1APIResources",
+        "operationId": "getInstallerKubeshieldCloudV1alpha1APIResources",
         "responses": {
           "200": {
             "description": "OK",
@@ -104,7 +104,7 @@
         }
       }
     },
-    "/apis/installer.kubeshield.io/v1alpha1/identityservers": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/identityservers": {
       "get": {
         "description": "list or watch objects of kind IdentityServer",
         "consumes": [
@@ -121,9 +121,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "listInstallerKubeshieldIoV1alpha1IdentityServerForAllNamespaces",
+        "operationId": "listInstallerKubeshieldCloudV1alpha1IdentityServerForAllNamespaces",
         "responses": {
           "200": {
             "description": "OK",
@@ -134,7 +134,7 @@
         },
         "x-kubernetes-action": "list",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -205,7 +205,7 @@
         }
       ]
     },
-    "/apis/installer.kubeshield.io/v1alpha1/namespaces/{namespace}/identityservers": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/namespaces/{namespace}/identityservers": {
       "get": {
         "description": "list or watch objects of kind IdentityServer",
         "consumes": [
@@ -222,9 +222,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "listInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "listInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "parameters": [
           {
             "uniqueItems": true,
@@ -293,7 +293,7 @@
         },
         "x-kubernetes-action": "list",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -312,9 +312,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "createInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "createInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "parameters": [
           {
             "name": "body",
@@ -361,7 +361,7 @@
         },
         "x-kubernetes-action": "post",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -380,9 +380,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "deleteInstallerKubeshieldIoV1alpha1CollectionNamespacedIdentityServer",
+        "operationId": "deleteInstallerKubeshieldCloudV1alpha1CollectionNamespacedIdentityServer",
         "parameters": [
           {
             "uniqueItems": true,
@@ -486,7 +486,7 @@
         },
         "x-kubernetes-action": "deletecollection",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -509,7 +509,7 @@
         }
       ]
     },
-    "/apis/installer.kubeshield.io/v1alpha1/namespaces/{namespace}/identityservers/{name}": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/namespaces/{namespace}/identityservers/{name}": {
       "get": {
         "description": "read the specified IdentityServer",
         "consumes": [
@@ -524,9 +524,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "readInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "readInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "responses": {
           "200": {
             "description": "OK",
@@ -537,7 +537,7 @@
         },
         "x-kubernetes-action": "get",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -556,9 +556,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "replaceInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "replaceInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "parameters": [
           {
             "name": "body",
@@ -599,7 +599,7 @@
         },
         "x-kubernetes-action": "put",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -618,9 +618,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "deleteInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "deleteInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "parameters": [
           {
             "name": "body",
@@ -674,7 +674,7 @@
         },
         "x-kubernetes-action": "delete",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -696,9 +696,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "patchInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "patchInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "parameters": [
           {
             "name": "body",
@@ -740,7 +740,7 @@
         },
         "x-kubernetes-action": "patch",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -771,7 +771,7 @@
         }
       ]
     },
-    "/apis/installer.kubeshield.io/v1alpha1/watch/identityservers": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/watch/identityservers": {
       "get": {
         "description": "watch individual changes to a list of IdentityServer. deprecated: use the 'watch' parameter with a list operation instead.",
         "consumes": [
@@ -788,9 +788,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "watchInstallerKubeshieldIoV1alpha1IdentityServerListForAllNamespaces",
+        "operationId": "watchInstallerKubeshieldCloudV1alpha1IdentityServerListForAllNamespaces",
         "responses": {
           "200": {
             "description": "OK",
@@ -801,7 +801,7 @@
         },
         "x-kubernetes-action": "watchlist",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -872,7 +872,7 @@
         }
       ]
     },
-    "/apis/installer.kubeshield.io/v1alpha1/watch/namespaces/{namespace}/identityservers": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/watch/namespaces/{namespace}/identityservers": {
       "get": {
         "description": "watch individual changes to a list of IdentityServer. deprecated: use the 'watch' parameter with a list operation instead.",
         "consumes": [
@@ -889,9 +889,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "watchInstallerKubeshieldIoV1alpha1NamespacedIdentityServerList",
+        "operationId": "watchInstallerKubeshieldCloudV1alpha1NamespacedIdentityServerList",
         "responses": {
           "200": {
             "description": "OK",
@@ -902,7 +902,7 @@
         },
         "x-kubernetes-action": "watchlist",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -981,7 +981,7 @@
         }
       ]
     },
-    "/apis/installer.kubeshield.io/v1alpha1/watch/namespaces/{namespace}/identityservers/{name}": {
+    "/apis/installer.kubeshield.cloud/v1alpha1/watch/namespaces/{namespace}/identityservers/{name}": {
       "get": {
         "description": "watch changes to an object of kind IdentityServer. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
         "consumes": [
@@ -998,9 +998,9 @@
           "https"
         ],
         "tags": [
-          "installerKubeshieldIo_v1alpha1"
+          "installerKubeshieldCloud_v1alpha1"
         ],
-        "operationId": "watchInstallerKubeshieldIoV1alpha1NamespacedIdentityServer",
+        "operationId": "watchInstallerKubeshieldCloudV1alpha1NamespacedIdentityServer",
         "responses": {
           "200": {
             "description": "OK",
@@ -1011,7 +1011,7 @@
         },
         "x-kubernetes-action": "watch",
         "x-kubernetes-group-version-kind": {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "version": "v1alpha1",
           "kind": "IdentityServer"
         }
@@ -1155,7 +1155,7 @@
       },
       "x-kubernetes-group-version-kind": [
         {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "kind": "IdentityServer",
           "version": "v1alpha1"
         }
@@ -1186,7 +1186,7 @@
       },
       "x-kubernetes-group-version-kind": [
         {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "kind": "IdentityServerList",
           "version": "v1alpha1"
         }
@@ -2037,7 +2037,7 @@
           "version": "v1"
         },
         {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "kind": "DeleteOptions",
           "version": "v1alpha1"
         }
@@ -2372,7 +2372,7 @@
           "version": "v1"
         },
         {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "kind": "Status",
           "version": "v1alpha1"
         }
@@ -2458,7 +2458,7 @@
           "version": "v1"
         },
         {
-          "group": "installer.kubeshield.io",
+          "group": "installer.kubeshield.cloud",
           "kind": "WatchEvent",
           "version": "v1alpha1"
         }

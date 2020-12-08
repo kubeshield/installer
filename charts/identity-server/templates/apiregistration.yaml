@@ -19,11 +19,11 @@
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.identity.kubeshield.io
+  name: v1alpha1.identity.kubeshield.cloud
   labels:
     {{- include "identity-server.labels" . | nindent 4 }}
 spec:
-  group: identity.kubeshield.io
+  group: identity.kubeshield.cloud
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}

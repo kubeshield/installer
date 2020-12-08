@@ -173,7 +173,7 @@ gen-crds:
 			paths="./apis/..."              \
 			output:crd:artifacts:config=api/crds
 
-crds_to_patch := installer.kubeshield.io_identityservers.yaml
+crds_to_patch := installer.kubeshield.cloud_identityservers.yaml
 
 .PHONY: patch-crds
 patch-crds: $(addprefix patch-crd-, $(crds_to_patch))
@@ -226,7 +226,7 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
-	@yq r api/crds/installer.kubeshield.io_identityservers.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/identity-server-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubeshield.cloud_identityservers.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/identity-server-values.openapiv3_schema.yaml
 	@yq d /tmp/identity-server-values.openapiv3_schema.yaml description > charts/identity-server/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
