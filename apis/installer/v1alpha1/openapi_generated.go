@@ -330,11 +330,15 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                               schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                       schema_apimachinery_pkg_util_intstr_IntOrString(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                  schema_k8sio_apimachinery_pkg_version_Info(ref),
+		"kubeshield.dev/installer/apis/installer/v1alpha1.Auditor":              schema_installer_apis_installer_v1alpha1_Auditor(ref),
+		"kubeshield.dev/installer/apis/installer/v1alpha1.AuditorList":          schema_installer_apis_installer_v1alpha1_AuditorList(ref),
+		"kubeshield.dev/installer/apis/installer/v1alpha1.AuditorSpec":          schema_installer_apis_installer_v1alpha1_AuditorSpec(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef":         schema_installer_apis_installer_v1alpha1_ContianerRef(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.HealthcheckSpec":      schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServer":       schema_installer_apis_installer_v1alpha1_IdentityServer(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServerList":   schema_installer_apis_installer_v1alpha1_IdentityServerList(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.IdentityServerSpec":   schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref),
+		"kubeshield.dev/installer/apis/installer/v1alpha1.ImageRef":             schema_installer_apis_installer_v1alpha1_ImageRef(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring":           schema_installer_apis_installer_v1alpha1_Monitoring(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.PrometheusSpec":       schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
 		"kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":   schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
@@ -15528,6 +15532,244 @@ func schema_k8sio_apimachinery_pkg_version_Info(ref common.ReferenceCallback) co
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_Auditor(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.AuditorSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubeshield.dev/installer/apis/installer/v1alpha1.AuditorSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_AuditorList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AuditorList is a list of Auditors",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Items is a list of Auditor CRD objects",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.Auditor"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubeshield.dev/installer/apis/installer/v1alpha1.Auditor"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_AuditorSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AuditorSpec is the schema for Grafana Operator values file",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"replicaCount": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef"),
+						},
+					},
+					"imagePullPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"imagePullSecrets": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"criticalAddon": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"logLevel": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"podAnnotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"nodeSelector": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"tolerations": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's tolerations.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/api/core/v1.Toleration"),
+									},
+								},
+							},
+						},
+					},
+					"affinity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's scheduling constraints",
+							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+						},
+					},
+					"podSecurityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PodSecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
+							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+						},
+					},
+					"serviceAccount": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec"),
+						},
+					},
+					"enableAnalytics": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"monitoring": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring"),
+						},
+					},
+				},
+				Required: []string{"replicaCount", "image", "imagePullPolicy", "serviceAccount", "monitoring"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef", "kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring", "kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec"},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_ContianerRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15831,6 +16073,37 @@ func schema_installer_apis_installer_v1alpha1_IdentityServerSpec(ref common.Refe
 		},
 		Dependencies: []string{
 			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubeshield.dev/installer/apis/installer/v1alpha1.ContianerRef", "kubeshield.dev/installer/apis/installer/v1alpha1.Monitoring", "kubeshield.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubeshield.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_ImageRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repository": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tag": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"registry", "repository", "tag"},
+			},
+		},
 	}
 }
 

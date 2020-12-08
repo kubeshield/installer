@@ -173,20 +173,11 @@ gen-crds:
 			paths="./apis/..."              \
 			output:crd:artifacts:config=api/crds
 
-crds_to_patch := installer.kubeshield.cloud_identityservers.yaml
-
-.PHONY: patch-crds
-patch-crds: $(addprefix patch-crd-, $(crds_to_patch))
-patch-crd-%: $(BUILD_DIRS)
-	@echo "patching $*"
-	@kubectl patch -f api/crds/$* -p "$$(cat hack/crd-patch.json)" --type=json --local=true -o yaml > bin/$*
-	@mv bin/$* api/crds/$*
-
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
 	@for f in api/crds/*.yaml; do \
-		echo "applying app=vault label to $$f"; \
-		kubectl label --overwrite -f $$f --local=true -o yaml app=vault > bin/crd.yaml; \
+		echo "applying app.kubernetes.io/name=kubeshield label to $$f"; \
+		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=kubeshield > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
 	done
 
@@ -226,6 +217,8 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
+	@yq r api/crds/installer.kubeshield.cloud_auditors.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/auditor-values.openapiv3_schema.yaml
+	@yq d /tmp/auditor-values.openapiv3_schema.yaml description > charts/auditor/values.openapiv3_schema.yaml
 	@yq r api/crds/installer.kubeshield.cloud_identityservers.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/identity-server-values.openapiv3_schema.yaml
 	@yq d /tmp/identity-server-values.openapiv3_schema.yaml description > charts/identity-server/values.openapiv3_schema.yaml
 
@@ -245,10 +238,10 @@ gen-chart-doc-%:
 		chart-doc-gen -d ./charts/$*/doc.yaml -v ./charts/$*/values.yaml > ./charts/$*/README.md
 
 .PHONY: manifests
-manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema gen-chart-doc
+manifests: gen-crds label-crds gen-bindata gen-values-schema gen-chart-doc
 
 .PHONY: gen
-gen: clientset gen-crd-protos manifests openapi
+gen: clientset manifests openapi
 
 CHART_REGISTRY     ?= appscode
 CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/

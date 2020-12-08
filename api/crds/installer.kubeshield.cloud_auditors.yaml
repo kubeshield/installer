@@ -4,17 +4,17 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubeshield
-  name: identityservers.installer.kubeshield.cloud
+  name: auditors.installer.kubeshield.cloud
 spec:
   group: installer.kubeshield.cloud
   names:
     categories:
     - kubeshield
     - appscode
-    kind: IdentityServer
-    listKind: IdentityServerList
-    plural: identityservers
-    singular: kubeshieldoperator
+    kind: Auditor
+    listKind: AuditorList
+    plural: auditors
+    singular: auditor
   preserveUnknownFields: false
   scope: Namespaced
   validation:
@@ -33,8 +33,7 @@ spec:
         metadata:
           type: object
         spec:
-          description: IdentityServerSpec is the schema for Identity Server values
-            file
+          description: AuditorSpec is the schema for Grafana Operator values file
           properties:
             affinity:
               description: If specified, the pod's scheduling constraints
@@ -612,41 +611,6 @@ spec:
               additionalProperties:
                 type: string
               type: object
-            apiserver:
-              properties:
-                groupPriorityMinimum:
-                  format: int32
-                  type: integer
-                healthcheck:
-                  properties:
-                    enabled:
-                      type: boolean
-                  type: object
-                servingCerts:
-                  properties:
-                    caCrt:
-                      type: string
-                    generate:
-                      type: boolean
-                    serverCrt:
-                      type: string
-                    serverKey:
-                      type: string
-                  required:
-                  - generate
-                  type: object
-                useKubeapiserverFqdnForAks:
-                  type: boolean
-                versionPriority:
-                  format: int32
-                  type: integer
-              required:
-              - groupPriorityMinimum
-              - healthcheck
-              - servingCerts
-              - useKubeapiserverFqdnForAks
-              - versionPriority
-              type: object
             criticalAddon:
               type: boolean
             enableAnalytics:
@@ -1031,7 +995,6 @@ spec:
                 type: object
               type: array
           required:
-          - apiserver
           - image
           - imagePullPolicy
           - monitoring
