@@ -45,7 +45,7 @@ data:
   tls.key: {{ $serverKey }}
 ---
 {{ $promNamespace:= default .Release.Namespace .Values.monitoring.prometheus.namespace }}
-{{- if (and (ne $promNamespace .Release.Namespace) .Values.monitoring.operator) }}
+{{- if (and (ne $promNamespace .Release.Namespace) .Values.monitoring.server) }}
 # if operator monitoring is enabled and prometheus namespace is different than operator
 # create the above secret in prometheus namespace too.
 apiVersion: v1

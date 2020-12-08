@@ -1,5 +1,5 @@
 /*
-Copyright The Kubeshield Authors.
+Copyright The Searchlight Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func TestIdentityServerDefaultValues(t *testing.T) {
-	diffstring, err := compareIdentityServerDefaultValues()
+func TestAuditorDefaultValues(t *testing.T) {
+	diffstring, err := compareAuditorDefaultValues()
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,8 +40,8 @@ func TestIdentityServerDefaultValues(t *testing.T) {
 	}
 }
 
-func compareIdentityServerDefaultValues() (string, error) {
-	data, err := ioutil.ReadFile("../../../charts/identity-server/values.yaml")
+func compareAuditorDefaultValues() (string, error) {
+	data, err := ioutil.ReadFile("../../../charts/auditor/values.yaml")
 	if err != nil {
 		return "", err
 	}
@@ -56,7 +56,7 @@ func compareIdentityServerDefaultValues() (string, error) {
 		return "", err
 	}
 
-	var spec v1alpha1.IdentityServerSpec
+	var spec v1alpha1.AuditorSpec
 	err = yaml.Unmarshal(data, &spec)
 	if err != nil {
 		return "", err
