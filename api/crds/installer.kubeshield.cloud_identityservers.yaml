@@ -822,12 +822,7 @@ spec:
               properties:
                 agent:
                   type: string
-                prometheus:
-                  properties:
-                    namespace:
-                      type: string
-                  type: object
-                server:
+                enabled:
                   type: boolean
                 serviceMonitor:
                   properties:
@@ -838,7 +833,6 @@ spec:
                   type: object
               required:
               - agent
-              - prometheus
               - serviceMonitor
               type: object
             nameOverride:

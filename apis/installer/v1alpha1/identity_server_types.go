@@ -124,20 +124,14 @@ type ServingCerts struct {
 }
 
 type Monitoring struct {
-	Agent string `json:"agent"`
-	//+optional
-	Server         bool                  `json:"server"`
-	Prometheus     *PrometheusSpec       `json:"prometheus"`
+	// +optional
+	Enabled        bool                  `json:"enabled"`
+	Agent          string                `json:"agent"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
-type PrometheusSpec struct {
-	//+optional
-	Namespace string `json:"namespace"`
-}
-
 type ServiceMonitorLabels struct {
-	//+optional
+	// +optional
 	Labels map[string]string `json:"labels"`
 }
 

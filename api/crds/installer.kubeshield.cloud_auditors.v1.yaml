@@ -631,6 +631,41 @@ spec:
                 additionalProperties:
                   type: string
                 type: object
+              apiserver:
+                properties:
+                  groupPriorityMinimum:
+                    format: int32
+                    type: integer
+                  healthcheck:
+                    properties:
+                      enabled:
+                        type: boolean
+                    type: object
+                  servingCerts:
+                    properties:
+                      caCrt:
+                        type: string
+                      generate:
+                        type: boolean
+                      serverCrt:
+                        type: string
+                      serverKey:
+                        type: string
+                    required:
+                    - generate
+                    type: object
+                  useKubeapiserverFqdnForAks:
+                    type: boolean
+                  versionPriority:
+                    format: int32
+                    type: integer
+                required:
+                - groupPriorityMinimum
+                - healthcheck
+                - servingCerts
+                - useKubeapiserverFqdnForAks
+                - versionPriority
+                type: object
               criticalAddon:
                 type: boolean
               enableAnalytics:
@@ -812,12 +847,7 @@ spec:
                 properties:
                   agent:
                     type: string
-                  prometheus:
-                    properties:
-                      namespace:
-                        type: string
-                    type: object
-                  server:
+                  enabled:
                     type: boolean
                   serviceMonitor:
                     properties:
@@ -828,7 +858,6 @@ spec:
                     type: object
                 required:
                 - agent
-                - prometheus
                 - serviceMonitor
                 type: object
               nameOverride:
@@ -1022,6 +1051,7 @@ spec:
                   type: object
                 type: array
             required:
+            - apiserver
             - image
             - imagePullPolicy
             - monitoring

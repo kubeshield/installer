@@ -90,13 +90,10 @@ apiserver:
 # If true, sends usage analytics
 enableAnalytics: true
 monitoring:
+  # If true, enables monitoring KubeDB operator
+  enabled: false
   # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
-  # Specify whether to monitor Identity server
-  server: false
-  prometheus:
-    # Specify the namespace where Prometheus server is running or will be deployed.
-    namespace: ""
   serviceMonitor:
     # Specify the labels for ServiceMonitor.
     # Prometheus crd will select ServiceMonitor using these labels.

@@ -241,7 +241,7 @@ gen-chart-doc-%:
 manifests: gen-crds label-crds gen-bindata gen-values-schema gen-chart-doc
 
 .PHONY: gen
-gen: clientset manifests openapi
+gen: clientset manifests
 
 CHART_REGISTRY     ?= appscode
 CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/
