@@ -3,19 +3,15 @@ module kubeshield.dev/installer
 go 1.12
 
 require (
-	github.com/go-openapi/spec v0.19.3
-	github.com/gogo/protobuf v1.3.1
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/google/gofuzz v1.1.0
+	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
+	github.com/mattn/go-colorable v0.1.8 // indirect
+	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/yudai/gojsondiff v1.0.0
-	gomodules.xyz/runtime v0.0.0-20201104200926-d838b09dda8b
+	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
+	github.com/yudai/pp v2.0.1+incompatible // indirect
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
-	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
-	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
-	kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006
-	kmodules.xyz/crd-schema-fuzz v0.0.0-20200922204806-c1426cd7fcf4
 	sigs.k8s.io/yaml v1.2.0
 )
 
