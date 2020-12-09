@@ -1,11 +1,10 @@
-# Copyright 2019 AppsCode Inc.
-# Copyright 2016 The Kubernetes Authors.
+# Copyright AppsCode Inc. and Contributors
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the AppsCode Community License 1.0.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Community-1.0.0.md
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +19,7 @@ REPO     := $(notdir $(shell pwd))
 BIN      := installer
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
+CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
 API_GROUPS           ?= installer:v1alpha1
@@ -49,8 +48,8 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := api apis # directories which hold app source (not vendored)
-SRC_DIRS := $(SRC_PKGS) hack/gencrd
+SRC_PKGS := apis # directories which hold app source (not vendored)
+SRC_DIRS := $(SRC_PKGS)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -171,11 +170,11 @@ gen-crds:
 		controller-gen                      \
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
-			output:crd:artifacts:config=api/crds
+			output:crd:artifacts:config=crds
 
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
-	@for f in api/crds/*.yaml; do \
+	@for f in crds/*.yaml; do \
 		echo "applying app.kubernetes.io/name=kubeshield label to $$f"; \
 		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=kubeshield > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
@@ -208,7 +207,7 @@ gen-bindata:
 	    --rm                                                    \
 	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
-	    -w /src/api/crds                                        \
+	    -w /src/crds                                        \
 		-v /tmp:/.cache                                         \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
@@ -216,11 +215,15 @@ gen-bindata:
 	    go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1573722179 -o bindata.go -pkg crds ./...
 
 .PHONY: gen-values-schema
-gen-values-schema:
-	@yq r api/crds/installer.kubeshield.cloud_auditors.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/auditor-values.openapiv3_schema.yaml
-	@yq d /tmp/auditor-values.openapiv3_schema.yaml description > charts/auditor/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubeshield.cloud_identityservers.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/identity-server-values.openapiv3_schema.yaml
-	@yq d /tmp/identity-server-values.openapiv3_schema.yaml description > charts/identity-server/values.openapiv3_schema.yaml
+gen-values-schema: $(BUILD_DIRS)
+	@for dir in charts/*/; do \
+		dir=$${dir%*/}; \
+		dir=$${dir##*/}; \
+		crd=$$(echo $$dir | tr -d '-'); \
+		yq r crds/installer.kubeshield.cloud_$${crd}s.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > bin/values.openapiv3_schema.yaml; \
+		yq d bin/values.openapiv3_schema.yaml description > charts/$${dir}/values.openapiv3_schema.yaml; \
+		rm -rf bin/values.openapiv3_schema.yaml; \
+	done
 
 .PHONY: gen-chart-doc
 gen-chart-doc: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'gen-chart-doc-%f ')
@@ -238,7 +241,7 @@ gen-chart-doc-%:
 		chart-doc-gen -d ./charts/$*/doc.yaml -v ./charts/$*/values.yaml > ./charts/$*/README.md
 
 .PHONY: manifests
-manifests: gen-crds label-crds gen-bindata gen-values-schema gen-chart-doc
+manifests: gen-crds gen-values-schema gen-chart-doc
 
 .PHONY: gen
 gen: clientset manifests
