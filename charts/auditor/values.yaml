@@ -62,16 +62,38 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
+apiserver:
+  # The minimum priority the webhook api group should have at least. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
+  # for more information on proper values of this field.
+  groupPriorityMinimum: 10000
+  # The ordering of the webhook api inside of the group. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
+  # for more information on proper values of this field
+  versionPriority: 15
+  # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
+  useKubeapiserverFqdnForAks: true
+  healthcheck:
+    # If true, enables the readiness and liveliness probes for the operator pod.
+    enabled: false
+  servingCerts:
+    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
+    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
+    # See also: [example terraform](https://github.com/kubeshield/installer/blob/master/charts/identity-server/example-terraform.tf)
+    generate: true
+    # CA certficate used by serving certificate of webhook server.
+    caCrt: ""
+    # Serving certficate used by webhook server.
+    serverCrt: ""
+    # Private key for the serving certificate used by webhook server.
+    serverKey: ""
 # If true, sends usage analytics
 enableAnalytics: true
 monitoring:
+  # If true, enables monitoring KubeDB operator
+  enabled: false
   # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
-  # Specify whether to monitor Grafana operator
-  server: false
-  prometheus:
-    # Specify the namespace where Prometheus server is running or will be deployed.
-    namespace: ""
   serviceMonitor:
     # Specify the labels for ServiceMonitor.
     # Prometheus crd will select ServiceMonitor using these labels.

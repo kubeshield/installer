@@ -80,6 +80,7 @@ type AuditorSpec struct {
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
+	Apiserver          WebHookSpec              `json:"apiserver"`
 	//+optional
 	EnableAnalytics bool       `json:"enableAnalytics"`
 	Monitoring      Monitoring `json:"monitoring"`

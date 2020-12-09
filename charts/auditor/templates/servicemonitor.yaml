@@ -1,17 +1,17 @@
-{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.server }}
+{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "auditor.fullname" . }}
-  namespace: {{ default .Release.Namespace  .Values.monitoring.prometheus.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
-  {{- if .Values.monitoring.serviceMonitor.labels }}
+    {{- if .Values.monitoring.serviceMonitor.labels }}
     {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
     {{ $key }}: {{ $val }}
-  {{- end }}
-  {{- else }}
-    {{- include "auditor.labels" . | nindent 4 }}
-  {{- end }}
+    {{- end }}
+    {{- else }}
+      {{- include "auditor.selectorLabels" . | nindent 4 }}
+    {{- end }}
 spec:
   namespaceSelector:
     matchNames:
@@ -24,6 +24,9 @@ spec:
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ include "auditor.fullname" . }}-apiserver-cert/tls.crt
+      ca:
+        secret:
+          name: {{ include "auditor.fullname" . }}-apiserver-cert
+          key: tls.crt
       serverName: "{{ include "auditor.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}
