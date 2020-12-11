@@ -99,3 +99,8 @@ monitoring:
     # Prometheus crd will select ServiceMonitor using these labels.
     # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
+auditor:
+  policyConfig: auditor-policy-file
+  policyFileName: default-policy.yaml
+  receiverAddr: nats://classic-server.nats.svc
+  receiverCredentialFile:

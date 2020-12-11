@@ -61,3 +61,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Name of configmap which contains auditor policy file
+*/}}
+{{- define "auditor.policyConfig" -}}
+{{- default (include "auditor.fullname" .) .Values.auditor.policyConfig }}
+{{- end }}
+
+{{/*
+Name of the auditor policy file
+*/}}
+{{- define "auditor.policyFileName" -}}
+{{- default (include "auditor.fullname" .).yaml .Values.auditor.policyFileName }}
+{{- end }}
