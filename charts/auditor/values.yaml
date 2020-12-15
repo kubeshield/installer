@@ -100,7 +100,10 @@ monitoring:
     # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
 auditor:
-  policyConfig: auditor-policy-file
-  policyFileName: default-policy.yaml
+  # Specify policies for auditor watcher.
+  # If unspecified it defaults to every resources.
+  policy:
+  # Server Address which will handle all the events
   receiverAddr: nats://classic-server.nats.svc
-  receiverCredentialFile:
+  # Server credential for authentication
+  receiverCredential:
