@@ -640,6 +640,17 @@ properties:
           type: string
       type: object
     type: array
+  watcher:
+    properties:
+      policy:
+        type: string
+      receiverAddr:
+        type: string
+      receiverCredential:
+        type: string
+    required:
+      - receiverAddr
+    type: object
 required:
   - apiserver
   - image
@@ -647,4 +658,5 @@ required:
   - monitoring
   - replicaCount
   - serviceAccount
+  - watcher
 type: object
