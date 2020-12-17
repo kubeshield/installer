@@ -48,7 +48,7 @@ type ImageRef struct {
 	Tag        string `json:"tag"`
 }
 
-// AuditorSpec is the schema for Grafana Operator values file
+// AuditorSpec is the schema for Auditor Operator values file
 type AuditorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`

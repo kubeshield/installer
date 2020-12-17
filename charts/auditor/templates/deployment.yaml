@@ -104,7 +104,7 @@ spec:
       - name: receiver-credential
         secret:
           defaultMode: 420
-          secretName: {{ include "auditor.fullname" .}}-receiverCredential
+          secretName: {{ include "auditor.fullname" .}}-receiver-credential
 {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
