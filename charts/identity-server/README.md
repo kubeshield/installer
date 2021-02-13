@@ -39,7 +39,6 @@ $ helm delete identity-server -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
-
 ## Configuration
 
 The following table lists the configurable parameters of the `identity-server` chart and their default values.
