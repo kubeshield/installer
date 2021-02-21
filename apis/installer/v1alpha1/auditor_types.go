@@ -48,7 +48,7 @@ type ImageRef struct {
 	Tag        string `json:"tag"`
 }
 
-// AuditorSpec is the schema for Grafana Operator values file
+// AuditorSpec is the schema for Auditor Operator values file
 type AuditorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
@@ -84,6 +84,15 @@ type AuditorSpec struct {
 	//+optional
 	EnableAnalytics bool       `json:"enableAnalytics"`
 	Monitoring      Monitoring `json:"monitoring"`
+	Watcher         Watcher    `json:"watcher"`
+}
+
+type Watcher struct {
+	// +optional
+	Policy       string `json:"policy"`
+	ReceiverAddr string `json:"receiverAddr"`
+	// +optional
+	ReceiverCredential string `json:"receiverCredential"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

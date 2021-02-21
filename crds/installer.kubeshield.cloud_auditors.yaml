@@ -34,7 +34,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: AuditorSpec is the schema for Grafana Operator values file
+            description: AuditorSpec is the schema for Auditor Operator values file
             properties:
               affinity:
                 description: If specified, the pod's scheduling constraints
@@ -1050,6 +1050,17 @@ spec:
                       type: string
                   type: object
                 type: array
+              watcher:
+                properties:
+                  policy:
+                    type: string
+                  receiverAddr:
+                    type: string
+                  receiverCredential:
+                    type: string
+                required:
+                - receiverAddr
+                type: object
             required:
             - apiserver
             - image
@@ -1057,6 +1068,7 @@ spec:
             - monitoring
             - replicaCount
             - serviceAccount
+            - watcher
             type: object
         type: object
     served: true

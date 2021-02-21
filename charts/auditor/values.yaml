@@ -6,7 +6,7 @@
 nameOverride: ""
 # Overrides fullname template
 fullnameOverride: ""
-# Number of Grafana operator replicas to create (only 1 is supported)
+# Number of Auditor operator replicas to create (only 1 is supported)
 replicaCount: 1
 image:
   # Docker registry used to pull operator image
@@ -35,7 +35,7 @@ image:
 imagePullSecrets: []
 # Container image pull policy
 imagePullPolicy: IfNotPresent
-# If true, installs Grafana operator as critical addon
+# If true, installs Auditor operator as critical addon
 criticalAddon: false
 # Log level for operator
 logLevel: 3
@@ -99,3 +99,11 @@ monitoring:
     # Prometheus crd will select ServiceMonitor using these labels.
     # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
+watcher:
+  # Specify policies for auditor watcher.
+  # If unspecified it defaults to every resources.
+  policy: ""
+  # Server Address which will handle all the events
+  receiverAddr: nats://classic-server.nats.svc
+  # Server credential for authentication
+  receiverCredential: ""
