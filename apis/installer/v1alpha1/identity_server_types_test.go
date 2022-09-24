@@ -19,7 +19,6 @@ package v1alpha1_test
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -41,7 +40,7 @@ func TestIdentityServerDefaultValues(t *testing.T) {
 }
 
 func compareIdentityServerDefaultValues() (string, error) {
-	data, err := ioutil.ReadFile("../../../charts/identity-server/values.yaml")
+	data, err := os.ReadFile("../../../charts/identity-server/values.yaml")
 	if err != nil {
 		return "", err
 	}
