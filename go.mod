@@ -14,7 +14,7 @@ require (
 	github.com/yudai/gojsondiff v1.0.0
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
-	golang.org/x/sys v0.0.0-20210309074719-68d13333faf2 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	k8s.io/api v0.21.0
 	k8s.io/apimachinery v0.21.0
 	sigs.k8s.io/yaml v1.2.0
